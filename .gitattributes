@@ -1,0 +1,6 @@
+# Normalize line endings. Keep the Node installer LF so its shebang stays valid
+# if the package is ever run on macOS/Linux.
+* text=auto
+bin/install.js text eol=lf
+*.js text eol=lf
+*.ps1 text eol=crlf

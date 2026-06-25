@@ -1,0 +1,35 @@
+{
+  "name": "iitb-apping",
+  "version": "1.0.0",
+  "description": "Installer for the iitb_apping Claude skill — find professors at any university and send personalized research-internship cold-emails from IITB Roundcube webmail, driven by kimi-webbridge.",
+  "bin": {
+    "iitb-apping": "bin/install.js"
+  },
+  "files": [
+    "bin",
+    "skill",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=16.7"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-skill",
+    "iitb",
+    "roundcube",
+    "webmail",
+    "outreach",
+    "kimi-webbridge"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimayshah123/iitb-apping.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nimayshah123/iitb-apping/issues"
+  },
+  "homepage": "https://github.com/nimayshah123/iitb-apping#readme"
+}
