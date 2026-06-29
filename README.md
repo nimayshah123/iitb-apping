@@ -17,9 +17,19 @@ That copies the skill into `~/.claude/skills/iitb_apping/`. To update later, re-
 ## What it does
 1. You give it a **field** and a **university**.
 2. It finds relevant professors and **verifies their emails from official faculty pages** (never guesses an address).
-3. You give it your **CV + transcript**.
-4. It **drafts a personalized email** for each professor, with a hook referencing their actual research.
-5. It opens each email in your webmail; you **attach your files** and it sends on your confirmation — one at a time.
+3. It reads your **CV** and writes a **personalized email per professor** — a hook referencing their actual research plus three real project bullets drawn from your CV.
+4. It opens each email in your webmail; you **attach your files** and it sends on your confirmation — one at a time.
+
+The emails follow a proven format: a tight intro, a one-line hook, three bolded project bullets, a soft ask, and a clean `LinkedIn | GitHub` signature. See a worked example in [`skill/references/email-templates.md`](skill/references/email-templates.md).
+
+## Customize it first (one-time, ~2 minutes)
+Open **`~/.claude/skills/iitb_apping/references/applicant-config.md`** (created on install) and fill in the `<< ... >>` blanks:
+- **Identity** — your name, institute, the exact degree line, and the credential (e.g. CPI) shown in the intro.
+- **Links** — your **LinkedIn** and **GitHub** URLs (they go in every signature).
+- **Attachments** — paths to your CV and transcript. Keep multiple CVs (e.g. an ML CV and a hardware CV), tag each with the fields it suits, and the skill picks the best match per professor.
+- **Preferences** — the subject's intern label, the dates you're pitching, your sign-off, and any hard rules (e.g. `must_not_mention: ["visa"]`, or rename a project consistently).
+
+You can also just **start a run and let the skill ask you** — it writes your answers back into the config so you're never asked twice. Want to change the whole voice? Edit the body and bolding rules in `references/email-templates.md`.
 
 ## Requirements
 - **Claude Code** (or Claude with skills support).
@@ -43,8 +53,9 @@ After installing, in Claude Code run **`/iitb_apping`**, or just say:
 ~/.claude/skills/iitb_apping/
 ├── SKILL.md                       # the playbook Claude follows
 ├── references/
+│   ├── applicant-config.md        # << CUSTOMIZE: your identity, links, CVs, preferences >>
 │   ├── finding-professors.md      # how to find + verify emails (no hallucinated addresses)
-│   ├── email-templates.md         # base template, hooks, follow-ups
+│   ├── email-templates.md         # the proven body, bolding checklist, hooks, follow-ups
 │   └── webmail-roundcube.md        # proven Roundcube DOM selectors + the attachment caveat
 └── scripts/
     ├── compose.ps1                # fills To/Subject/HTML-body via the kimi-webbridge daemon

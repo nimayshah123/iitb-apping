@@ -8,12 +8,17 @@ description: Find professors/researchers at a university in a given field and dr
 Find relevant professors at a target university, draft tailored cold-emails, and send them from the user's **IITB Roundcube webmail** by driving the browser with **kimi-webbridge**. The user pays nothing beyond their Claude subscription — the AI runs in their own chat and the browser is their own logged-in session.
 
 ## How it works (high level)
-1. Confirm prerequisites (kimi-webbridge running; user logged into webmail.iitb.ac.in).
-2. Gather: field/topic, **university (disambiguate!)**, level, program/dates, sender identity.
-3. Find professors via web search; **verify every email from an official faculty page**.
-4. Collect the user's CV + transcript file paths.
-5. Draft a shared template + a per-professor research hook.
-6. For each email: open compose, fill To/Subject/body, **user attaches the files**, confirm, send. One at a time.
+1. **Load the user's config** (`references/applicant-config.md`) — name, institute, CPI, LinkedIn/GitHub, CV paths, tone. Fill any blanks once, then reuse.
+2. Confirm prerequisites (kimi-webbridge running; user logged into webmail.iitb.ac.in).
+3. Gather: field/topic, **university (disambiguate!)**, level, program/dates.
+4. Find professors via web search; **verify every email from an official faculty page**.
+5. Read the user's CV; extract real projects.
+6. Draft per professor: shared body + a per-professor hook + 3 real bullets, in the exact format and bolding of `references/email-templates.md`.
+7. For each email: open compose, fill To/Subject/body, **user attaches the files**, confirm, send. One at a time.
+
+> **First time? Customize the skill.** Open `references/applicant-config.md` and fill in your
+> identity, links, CV/transcript paths, and email preferences. That file is the single place
+> a new user makes this skill theirs — everything in the templates flows from it.
 
 ---
 
@@ -39,6 +44,20 @@ If no tab is found, ask the user to open and log into webmail.iitb.ac.in, then r
 
 ---
 
+## Step 0.5 — Load (or set up) the applicant config
+
+Open `references/applicant-config.md`. This holds the user's identity, links, CV/transcript
+paths, and email preferences (subject label, dates phrase, sign-off, `must_not_mention`,
+`project_naming`).
+
+- **Any `<< ... >>` placeholders still present** → ask the user for those values (use AskUserQuestion), then **write them back** into the config so it's a one-time step. At minimum you need: full name, institute, degree line, credential, LinkedIn URL, GitHub URL, CV path(s), transcript path.
+- **Already filled** → load it and proceed; only re-confirm if the user signals a change.
+- Persist a copy to memory too (an applicant-profile note) so it survives across sessions.
+
+Never send without LinkedIn + GitHub URLs and a CV + transcript path — they are required by the template.
+
+---
+
 ## Step 1 — Gather inputs
 
 A typical prompt ("find professors at NUS in ML and email them for an internship July–August") gives you the field, university, purpose and dates but **leaves the rest implicit**. Take whatever the user provided, then **ask (AskUserQuestion) for anything still missing — do not assume**:
@@ -46,11 +65,9 @@ A typical prompt ("find professors at NUS in ML and email them for an internship
 - **University** — and **disambiguate** if ambiguous (e.g. "NTU" = Nanyang Tech *or* National Taiwan University). Getting this wrong wastes the whole run.
 - **Level** (undergrad / master's / recent grad / PhD-track) — almost never in the prompt; **ask**.
 - **Program / funding scheme + dates** — only include a named scheme if it actually applies to that country (e.g. NSTC IIPP is Taiwan-only; for NUS/Singapore use a generic "research internship"). Confirm dates; **ask** if the scheme is unclear.
-- **Sender identity** for the signature (name, institute) — infer from the user/their files if obvious, otherwise **ask**.
-- **LinkedIn + GitHub URLs** — **always ask** for these if not in the profile. Every email signature **must end with LinkedIn + GitHub buttons** (see `references/email-templates.md`).
-- **CV + transcript** file paths (Step 3) — **ask**; never proceed to send without them.
+- **Sender identity, LinkedIn/GitHub, CV + transcript** — these live in `applicant-config.md` (Step 0.5). If already set, don't re-ask. Every signature ends with plain LinkedIn + GitHub hyperlinks; never proceed to send without the CV + transcript paths.
 
-**Applicant profile (reuse — don't re-ask every run):** the identity-level answers (name, institute, level, CPI/credential, signature, default CV + transcript paths) rarely change for a given user. On first run, capture them; then **persist them** (e.g. to the user's memory as an applicant profile) and **reuse on later runs**, only re-confirming if the user signals something changed. Per-run questions are just: field, university, dates, and which professors to contact.
+**Applicant profile (reuse — don't re-ask every run):** the identity-level answers live in `applicant-config.md` and the user's memory. They rarely change. Per-run questions are just: field, university, dates, and which professors to contact.
 
 Only start finding professors once field + university + level are settled.
 
@@ -79,11 +96,13 @@ If a stored applicant profile already exists and the user hasn't changed resumes
 
 ## Step 4 — Draft emails
 
-Follow `references/email-templates.md`:
+Follow `references/email-templates.md` **exactly** — it is the proven format:
 - One shared body + a **per-professor research hook** referencing their actual work.
-- A clear subject line.
-- **Bold key terms** (the body is set as HTML in the rich-text editor).
-- Show the user the drafts (or at least the first one + the hook list) and let them tweak tone, credentials, dates before sending.
+- The subject format `Prospective {{intern_label}} ({{dates_phrase}}) - {{Topic}} - {{name}}, {{institute}}`.
+- **Three real project bullets** drawn from the user's CV, most-relevant-to-that-professor first.
+- Apply the **bolding checklist** (name + degree line + bullet leads + the "opportunity to join your group for a research internship" phrase + sign-off name/institute). Plain hyperlink signature, never styled buttons.
+- Honour the config's `must_not_mention` and `project_naming`.
+- Show the user the first fully-rendered draft (and the hook list) and let them tweak tone, credentials, dates before sending; then keep that format for the rest.
 
 ## Step 5 — Compose & send loop
 
