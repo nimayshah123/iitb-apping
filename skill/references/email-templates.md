@@ -22,12 +22,12 @@ Prospective {{intern_label}} ({{dates_phrase}}) - {{Topic}} - {{full_name}}, {{i
 <p>I am <strong>{{full_name}}</strong>, a recent <strong>{{degree_line}}</strong> ({{credential}}), hoping to spend {{dates_phrase}} contributing to research in your group, on-site at {{university}}.</p>
 <p>My interests lie in {{interest_areas}}. {{hook}} Recently, I have worked on:</p>
 <ul>
-  <li><strong>{{project_1_name}}</strong> &mdash; {{project_1_detail_with_numbers}}</li>
-  <li><strong>{{project_2_name}}</strong> &mdash; {{project_2_detail_with_numbers}}</li>
-  <li><strong>{{project_3_name}}</strong> &mdash; {{project_3_detail_with_numbers}}</li>
+  <li><strong>{{project_1_name}}</strong> - {{project_1_detail_with_numbers}}</li>
+  <li><strong>{{project_2_name}}</strong> - {{project_2_detail_with_numbers}}</li>
+  <li><strong>{{project_3_name}}</strong> - {{project_3_detail_with_numbers}}</li>
 </ul>
 <p>{{credibility_line}}</p>
-<p>Given this background, I was wondering whether there might be an <strong>opportunity to join your group for a research internship</strong> during {{dates_phrase}}, ideally on-site. I would be glad to contribute to any ongoing project aligned with these interests.</p>
+<p>Given this background, I was wondering whether there might be an <strong>opportunity to join your group for a research internship</strong> during {{dates_phrase}}, whether on-site or remotely. I would be glad to contribute to any ongoing project aligned with these interests.</p>
 <p>My CV and transcript are attached. Thank you for your time and consideration.</p>
 <p>{{sign_off}},<br><strong>{{full_name}}</strong><br><strong>{{institute}}</strong></p>
 <p><a href="{{linkedin_url}}">LinkedIn</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{github_url}}">GitHub</a></p>
@@ -37,7 +37,7 @@ Prospective {{intern_label}} ({{dates_phrase}}) - {{Topic}} - {{full_name}}, {{i
 **Bold:**
 - `{{full_name}}` in the opening line
 - the whole `{{degree_line}}` phrase
-- each project's **lead name** (the part before the `&mdash;`)
+- each project's **lead name** (the part before the ` - `)
 - the ask phrase **"opportunity to join your group for a research internship"**
 - `{{full_name}}` and `{{institute}}` in the sign-off
 
@@ -49,15 +49,15 @@ End with **plain named hyperlinks** — display text `LinkedIn` / `GitHub`, sepa
 ## Worked example (fictional — copy this *shape*, fill with your own real projects)
 ```html
 <p>Dear Prof. Chen,</p>
-<p>I am <strong>Riya Menon</strong>, a recent <strong>B.Tech (Honors) graduate in Computer Science from IIT Bombay</strong> (CPI 9.2/10), hoping to spend July&ndash;August 2026 contributing to research in your group, on-site at the National University of Singapore.</p>
+<p>I am <strong>Riya Menon</strong>, a recent <strong>B.Tech (Honors) graduate in Computer Science from IIT Bombay</strong> (CPI 9.2/10, with a Minor in Mathematics), hoping to spend July-August 2026 contributing to research in your group, on-site at the National University of Singapore.</p>
 <p>My interests lie in vision-language models and self-supervised representation learning. Your work on self-supervised multimodal pre-training is exactly the area my recent projects sit in. Recently, I have worked on:</p>
 <ul>
-  <li><strong>Caption-Contrastive Pretraining</strong> &mdash; trained a CLIP-style dual encoder on a 2M image-text subset, improving zero-shot retrieval Recall@1 by 4.3 points over the baseline.</li>
-  <li><strong>Masked Graph Autoencoder</strong> &mdash; reproduced a self-supervised graph model and added degree-aware masking, with consistent accuracy gains on citation-network benchmarks.</li>
-  <li><strong>Multimodal Activity Detector</strong> &mdash; fused video and audio embeddings with a lightweight temporal policy for real-time event detection.</li>
+  <li><strong>Caption-Contrastive Pretraining</strong> - trained a CLIP-style dual encoder on a 2M image-text subset, improving zero-shot retrieval Recall@1 by 4.3 points over the baseline.</li>
+  <li><strong>Masked Graph Autoencoder</strong> - reproduced a self-supervised graph model and added degree-aware masking, with consistent accuracy gains on citation-network benchmarks.</li>
+  <li><strong>Multimodal Activity Detector</strong> - fused video and audio embeddings with a lightweight temporal policy for real-time event detection.</li>
 </ul>
 <p>I also interned last summer as a Machine Learning Intern at &lt;Company&gt;, building forecasting models over large time-series datasets.</p>
-<p>Given this background, I was wondering whether there might be an <strong>opportunity to join your group for a research internship</strong> during July&ndash;August 2026, ideally on-site. I would be glad to contribute to any ongoing project aligned with these interests.</p>
+<p>Given this background, I was wondering whether there might be an <strong>opportunity to join your group for a research internship</strong> during July-August 2026, whether on-site or remotely. I would be glad to contribute to any ongoing project aligned with these interests.</p>
 <p>My CV and transcript are attached. Thank you for your time and consideration.</p>
 <p>Best regards,<br><strong>Riya Menon</strong><br><strong>IIT Bombay</strong></p>
 <p><a href="https://www.linkedin.com/in/your-handle">LinkedIn</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://github.com/your-handle">GitHub</a></p>
